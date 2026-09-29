@@ -280,7 +280,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   s.addNotes("Four moves. Two where we invest: merchant acquisition in healthcare and home furnishing, and converting first-time customers into repeat customers. One where we pull back: travel borrowers below 640 FICO, via the risk model rather than a blunt cut-off. One pricing fix: 0% APR merchant fee. Together: profit grows faster than GMV and the loss rate goes down, because growth is steered toward low-loss segments.");
 }
 
-// ---------- 6. Recommendations & sizing ----------
+// ---------- 7. Recommendations & sizing ----------
 {
   const s = pres.addSlide();
   s.background = { color: WHITE };
@@ -318,7 +318,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   s.addNotes("Each lever is sized on 2025 volume at seasoned margins, with a conservative and an ambitious case. Repeat customers are the biggest profit lever. Merchant acquisition adds steady growth: each vertical only has 3–4 merchants, so one new average merchant adds 25–35% to the vertical. Tightening travel costs some profit, which is a deliberate trade for lower risk. Net: profit +7–15%, GMV +4–8%, and the loss rate goes down. 0% APR repricing is on top, but depends on merchant response.");
 }
 
-// ---------- 7. Risks & next steps ----------
+// ---------- 8. Risks & next steps ----------
 {
   const s = pres.addSlide();
   s.background = { color: NAVY };
