@@ -4,8 +4,8 @@
 |---|---|---|
 | 1. Data exploration & integrity | `notebooks/01_data_integrity.ipynb` | done |
 | 2. Portfolio & risk analysis | `notebooks/02_portfolio_risk.ipynb` | done |
-| 3. Strategic recommendation | `notebooks/03_recommendation_sizing.ipynb` | draft |
-| 4. Presentation | — | next |
+| 3. Strategic recommendation | `notebooks/03_recommendation_sizing.ipynb` | done |
+| 4. Presentation | `deck/portfolio_recommendation.pptx` (built by `deck/build_deck.js`) | draft |
 
 **Running in Google Colab:** open the notebook (File → Upload notebook, or open from GitHub), upload `loans.csv`,
 `users.csv`, `merchants.csv` to the Files panel, then run all cells.
