@@ -7,5 +7,5 @@
 | 3. Strategic recommendation | — | |
 | 4. Presentation | — | |
 
-**Running in Google Colab:** open the notebook (File → Upload notebook, or open from GitHub), run all cells, and
-upload `loans.csv`, `users.csv`, `merchants.csv` when prompted. The data files are intentionally not committed.
+**Running in Google Colab:** open the notebook (File → Upload notebook, or open from GitHub), upload `loans.csv`,
+`users.csv`, `merchants.csv` to the Files panel, then run all cells. The data files are intentionally not committed.
