@@ -129,23 +129,23 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   kicker(s, "Where value and risk sit");
   title(s, "Travel carries the risk, fashion dilutes the margin, healthcare and home furnishing lead");
 
-  const hdr = ["Vertical", "Share of GMV", "Bad rate", "Loss rate", "Margin", "Share of profit"];
+  const hdr = ["Vertical", "Share of loans", "Share of GMV", "Bad rate", "Loss rate", "Margin", "Share of profit"];
   const data = [
-    ["Healthcare", "15%", "4%", "1.5%", "9.1%", "20%"],
-    ["Travel", "20%", "21%", "3.5%", "8.7%", "24%"],
-    ["Fitness", "7%", "5%", "1.2%", "7.4%", "7%"],
-    ["Home furnishing", "14%", "4%", "1.2%", "7.4%", "15%"],
-    ["Electronics", "20%", "4%", "1.4%", "6.4%", "18%"],
-    ["Auto parts", "7%", "4%", "1.9%", "6.1%", "6%"],
-    ["Fashion", "18%", "5%", "2.5%", "3.8%", "10%"],
+    ["Healthcare", "5%", "15%", "4%", "1.5%", "9.1%", "20%"],
+    ["Travel", "6%", "20%", "21%", "3.5%", "8.7%", "24%"],
+    ["Fitness", "8%", "7%", "5%", "1.2%", "7.4%", "7%"],
+    ["Home furnishing", "8%", "14%", "4%", "1.2%", "7.4%", "15%"],
+    ["Electronics", "16%", "20%", "4%", "1.4%", "6.4%", "18%"],
+    ["Auto parts", "7%", "7%", "4%", "1.9%", "6.1%", "6%"],
+    ["Fashion", "51%", "18%", "5%", "2.5%", "3.8%", "10%"],
   ];
-  const highlight = { "Travel": { 2: RED, 3: RED }, "Fashion": { 3: RED, 4: RED }, "Healthcare": { 4: GREEN }, "Home furnishing": { 3: GREEN, 4: GREEN } };
+  const highlight = { "Travel": { 3: RED, 4: RED }, "Fashion": { 1: INK, 4: RED, 5: RED }, "Healthcare": { 5: GREEN }, "Home furnishing": { 4: GREEN, 5: GREEN } };
   const rows = [hdr.map((h, j) => ({ text: h, options: { bold: true, color: WHITE, fill: { color: NAVY }, align: j ? "center" : "left" } }))];
   data.forEach((r, i) => rows.push(r.map((c, j) => {
     const col = (highlight[r[0]] || {})[j];
     return { text: c, options: { color: col || INK, bold: !!col || j === 0, align: j ? "center" : "left", fill: { color: i % 2 ? "F6F6FE" : WHITE } } };
   })));
-  s.addTable(rows, { x: M, y: 1.6, w: 7.9, colW: [1.9, 1.2, 1.1, 1.1, 1.1, 1.5], rowH: 0.52, fontFace: FONT, fontSize: 13,
+  s.addTable(rows, { x: M, y: 1.6, w: 7.9, colW: [1.75, 1.05, 1.05, 0.95, 0.95, 0.95, 1.2], rowH: 0.52, fontFace: FONT, fontSize: 12,
     border: { type: "solid", pt: 0.5, color: LINE }, valign: "middle", margin: [0.03, 0.1, 0.03, 0.1] });
 
   const px = 8.9, pw = W - M - px;
