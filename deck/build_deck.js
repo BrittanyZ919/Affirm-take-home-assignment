@@ -251,10 +251,10 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   const rows = [[H("Move", true), H("Why", true), H("How (conservative / ambitious)", true), H("GMV"), H("Profit"), H("Credit loss $")]];
   const moves = [
     ["INVEST", GREEN, "Grow healthcare & home furnishing", "Best risk-adjusted margins (9.8%, 8.2%) with 1.3–2.0% loss",
-      "Merchant acquisition: +10% / +20% vertical GMV (≈ 1 new merchant each at +20%)", "+$78K / +$155K", "+$7.0K / +$14.0K", "+$1.3K / +$2.7K"],
+      "Each new merchant brings ~57 (healthcare) / ~122 (home) customers a year, ~1 loan each, at ~$176 / ~$78 profit per loan (~$10K per merchant). +10% / +20% GMV ≈ 0.3–0.8 new merchants per vertical", "+$78K / +$155K", "+$7.0K / +$14.0K", "+$1.3K / +$2.7K"],
     ["INVEST", GREEN, "Repeat customers", "Repeat loans lose 2.5× less; 82% of loss comes from first loans",
-      "+5 / +10 pts big-ticket repeat rate; 5% / 10% of repeat loans Split Pay → interest-bearing", "+$86K / +$172K", "+$12.4K / +$24.9K", "+$1.3K / +$2.5K"],
-    ["TIGHTEN", RED, "Travel, FICO < 640", "~43% bad rate, 6.4% loss; margin ~1% if delinquents charge off",
+      "Marketing offers that move repeat Split Pay customers to interest-bearing: +$49 profit per conversion (~145 / ~290 conversions). Plus +5 / +10 pts big-ticket repeat rate (~$126 profit per extra loan)", "+$86K / +$172K", "+$12.4K / +$24.9K", "+$1.3K / +$2.5K"],
+    ["TIGHTEN", RED, "Travel, FICO < 640", "35% of travel GMV but 64% of its losses (43% bad rate); if delinquents charge off, travel margin falls 9.4% → 5.2%",
       "Raise the risk model cut-off and lower limits: −25% / −50% segment volume", "−$54K / −$107K", "−$3.8K / −$7.6K", "−$3.4K / −$6.9K"],
     ["REPRICE", INDIGO, "0% APR merchant fee", "Fee is 5.1% vs 5.5% for interest-bearing at the same merchants",
       "+0.4 pt to parity (not in totals; depends on merchant response)", "—", "≈ +$1.9K", "—"],
@@ -284,11 +284,9 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
     { text: "vs 2025 baseline: $2.85M GMV, $212K profit, 2.32% loss rate", options: { color: INK, fill: { color: LAV }, colspan: 2 } },
     T("+3.9% / +7.7%"), T("+7.4% / +14.8%"), T("Loss rate → 2.21% / 2.10%", { color: GREEN }),
   ]);
-  s.addTable(rows, { x: M, y: 1.5, w: W - 2 * M, colW: [2.35, 2.9, 3.05, 1.25, 1.3, 1.283], rowH: [0.42, 0.88, 0.88, 0.88, 0.88, 0.62],
+  s.addTable(rows, { x: M, y: 1.5, w: W - 2 * M, colW: [2.3, 2.6, 3.4, 1.25, 1.3, 1.283], rowH: [0.42, 1.05, 1.05, 0.95, 0.8, 0.6],
     fontFace: FONT, fontSize: 11, border: { type: "solid", pt: 0.5, color: LINE }, valign: "middle", margin: [0.04, 0.1, 0.04, 0.1] });
 
-  s.addText("Profit grows faster than GMV and the loss rate falls: growth goes to low-loss verticals and repeat customers, and exposure is cut where risk is concentrated.",
-    { x: M, y: 6.25, w: W - 2 * M, h: 0.5, fontFace: FONT, fontSize: 12, italic: true, color: MUTED, margin: 0, valign: "top", isTextBox: true });
   footnote(s, "GMV / profit / loss cells: top = conservative, bottom = ambitious. One year = 2025 volume × seasoned (Jul 2024–Jun 2025) rates; the data is a sample, so read $ as relative sizes.");
   s.addNotes("Four moves, each with the evidence and the sizing on one line. Two where we invest: healthcare and home furnishing merchants — one new average merchant adds 25–35% to the vertical — and repeat customers, which is the biggest profit lever. One where we pull back: travel below 640 FICO, through the risk model's cut-off and limits; it costs some profit, a deliberate trade for lower risk. One pricing fix: 0% APR merchant fee, shown separately because it depends on how merchants respond. Net: profit +7–15%, GMV +4–8%, and the loss rate goes down.");
 }
