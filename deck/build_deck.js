@@ -129,17 +129,17 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   kicker(s, "Where value and risk sit");
   title(s, "Travel carries the risk, fashion dilutes the margin, healthcare and home furnishing lead");
 
-  const hdr = ["Vertical", "Share of loans", "Share of GMV", "Bad rate", "Loss rate", "Margin", "Share of profit"];
+  const hdr = ["Vertical", "Share of loans", "Share of GMV", "Bad rate*", "Loss rate*", "Margin*", "Share of profit"];
   const data = [
-    ["Healthcare", "5%", "15%", "4%", "1.5%", "9.1%", "20%"],
-    ["Travel", "6%", "20%", "21%", "3.5%", "8.7%", "24%"],
-    ["Fitness", "8%", "7%", "5%", "1.2%", "7.4%", "7%"],
-    ["Home furnishing", "8%", "14%", "4%", "1.2%", "7.4%", "15%"],
-    ["Electronics", "16%", "20%", "4%", "1.4%", "6.4%", "18%"],
-    ["Auto parts", "7%", "7%", "4%", "1.9%", "6.1%", "6%"],
-    ["Fashion", "51%", "18%", "5%", "2.5%", "3.8%", "10%"],
+    ["Healthcare", "5%", "15%", "4.8%", "2.0%", "9.8%", "20%"],
+    ["Travel", "6%", "20%", "23.5%", "3.6%", "9.4%", "24%"],
+    ["Home furnishing", "8%", "14%", "4.6%", "1.3%", "8.2%", "15%"],
+    ["Fitness", "8%", "7%", "4.8%", "1.3%", "8.1%", "7%"],
+    ["Electronics", "16%", "20%", "4.5%", "1.6%", "7.2%", "18%"],
+    ["Auto parts", "7%", "7%", "4.5%", "1.7%", "6.9%", "6%"],
+    ["Fashion", "51%", "18%", "6.2%", "3.2%", "3.5%", "10%"],
   ];
-  const highlight = { "Travel": { 3: RED, 4: RED }, "Fashion": { 1: INK, 4: RED, 5: RED }, "Healthcare": { 5: GREEN }, "Home furnishing": { 4: GREEN, 5: GREEN } };
+  const highlight = { "Travel": { 3: RED, 4: RED }, "Fashion": { 1: INK, 3: RED, 4: RED, 5: RED }, "Healthcare": { 5: GREEN }, "Home furnishing": { 4: GREEN, 5: GREEN } };
   const rows = [hdr.map((h, j) => ({ text: h, options: { bold: true, color: WHITE, fill: { color: NAVY }, align: j ? "center" : "left" } }))];
   data.forEach((r, i) => rows.push(r.map((c, j) => {
     const col = (highlight[r[0]] || {})[j];
@@ -150,9 +150,9 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
 
   const px = 8.9, pw = W - M - px;
   const callouts = [
-    ["Travel, FICO < 640", "~40% delinquent or charged off; 6.3% loss. Margin 6.7% falls to ~0% if delinquent loans charge off.", RED],
-    ["Fashion", "51% of loans but 10% of profit. Small tickets; fashion Split Pay earns ~1% margin.", RED],
-    ["Healthcare & home furnishing", "Low loss (1.2–1.5%) with high revenue. A healthcare customer is worth ~$215 in profit over their loans.", GREEN],
+    ["Travel, FICO < 640", "~43% delinquent or charged off; 6.4% loss. Margin 7.1% falls to ~1% if delinquent loans charge off.", RED],
+    ["Fashion", "51% of loans but 10% of profit. Small tickets; fashion Split Pay earns ~0.5% margin.", RED],
+    ["Healthcare & home furnishing", "Low loss (1.3–2.0%) with high revenue. A healthcare customer is worth ~$215 in profit over their loans.", GREEN],
   ];
   callouts.forEach(([h, b, col], i) => {
     const y = 1.6 + i * 1.72;
@@ -160,8 +160,8 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
     s.addText(h, { x: px + 0.2, y: y + 0.12, w: pw - 0.4, h: 0.38, fontFace: FONT, fontSize: 14, bold: true, color: col, margin: 0, isTextBox: true });
     s.addText(b, { x: px + 0.2, y: y + 0.52, w: pw - 0.4, h: 0.95, fontFace: FONT, fontSize: 12, color: INK, margin: 0, valign: "top", isTextBox: true });
   });
-  footnote(s, "Bad rate = share of loans delinquent 30/60 or charged off. Rates are % of GMV. Ranking holds on seasoned loans (originated by Jun 2025).");
-  s.addNotes("Sorted by margin. Travel has five times the bad rate of any other vertical, but it is still our largest profit pool because revenue is high. The risk is concentrated in sub-640 FICO travel borrowers: 40% bad rate, and the margin disappears if the delinquent loans charge off. Fashion is half our loans but a tenth of profit. Healthcare and home furnishing combine low loss with high revenue. By product, interest-bearing earns 82% of profit.");
+  footnote(s, "* Rates on seasoned loans (originated Jul 2024–Jun 2025); shares on all loans. Bad rate = delinquent 30/60 or charged off. Rates are % of GMV.");
+  s.addNotes("Sorted by margin; rates are on seasoned loans so young loans do not flatter them. Travel has five times the bad rate of any other vertical, but it is still our largest profit pool because revenue is high. The risk is concentrated in sub-640 FICO travel borrowers: 43% bad rate, and the margin disappears if the delinquent loans charge off. Fashion is half our loans but a tenth of profit. Healthcare and home furnishing combine low loss with high revenue. Shares of loans, GMV and profit use all loans.");
 }
 
 // ---------- 4. Product economics ----------
@@ -171,11 +171,11 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   kicker(s, "Where value sits by product");
   title(s, "Interest-bearing earns 82% of profit; 0% APR gives up interest without a higher merchant fee");
 
-  const hdr = ["Product", "Share of loans", "Share of GMV", "Avg FICO", "Loss rate", "Merchant fee", "Interest", "Margin", "Share of profit"];
+  const hdr = ["Product", "Share of loans", "Share of GMV", "Avg FICO", "Loss rate*", "Merchant fee*", "Interest*", "Margin*", "Share of profit"];
   const data = [
-    ["Interest-bearing", "48%", "58%", "644", "2.3%", "6.1%", "7.4%", "9.9%", "82%"],
-    ["0% APR", "11%", "18%", "683", "1.0%", "5.7%", "—", "3.4%", "9%"],
-    ["Split Pay", "41%", "24%", "656", "2.2%", "5.0%", "—", "2.6%", "9%"],
+    ["Interest-bearing", "48%", "58%", "644", "2.8%", "6.2%", "9.3%", "11.3%", "82%"],
+    ["0% APR", "11%", "18%", "683", "0.7%", "5.7%", "—", "3.7%", "9%"],
+    ["Split Pay", "41%", "24%", "656", "2.5%", "5.1%", "—", "2.4%", "9%"],
   ];
   const highlight = { "Interest-bearing": { 6: GREEN, 7: GREEN, 8: GREEN }, "0% APR": { 3: GREEN, 4: GREEN, 5: RED, 7: RED },
                       "Split Pay": { 4: RED, 7: RED } };
@@ -189,11 +189,11 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
 
   const cards = [
     ["0% APR is under-priced", RED,
-      "Lowest risk (FICO 683, 1.0% loss), but no interest and a 12–18 month term to fund. The promo is meant to be paid for by a higher merchant fee — yet at the same promo merchants its fee averages 5.0% vs 5.4% for interest-bearing."],
+      "Lowest risk (FICO 683, 0.7% loss), but no interest and a 12–18 month term to fund. The promo is meant to be paid for by a higher merchant fee — yet at the same promo merchants its fee averages 5.1% vs 5.5% for interest-bearing."],
     ["Split Pay is an entry product", INDIGO,
-      "Thin margin (2.6%) with loss as high as interest-bearing, but 63% of customers who start with Split Pay take an interest-bearing loan next."],
+      "Thin margin (2.4%) with loss (2.5%) close to interest-bearing, but 63% of customers who start with Split Pay take an interest-bearing loan next."],
     ["Interest-bearing pays for the risk", GREEN,
-      "Highest loss (2.3%) is more than covered by 7.4% interest income — 58% of GMV, 82% of profit."],
+      "Highest loss (2.8%) is more than covered by 9.3% interest income — 58% of GMV, 82% of profit."],
   ];
   const cw = (W - 2 * M - 0.6) / 3;
   cards.forEach(([h, col, b], i) => {
@@ -202,7 +202,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
     s.addText(h, { x: x + 0.25, y: 4.35, w: cw - 0.5, h: 0.4, fontFace: FONT, fontSize: 14, bold: true, color: col, margin: 0, isTextBox: true });
     s.addText(b, { x: x + 0.25, y: 4.8, w: cw - 0.5, h: 1.35, fontFace: FONT, fontSize: 12, color: INK, margin: 0, valign: "top", isTextBox: true });
   });
-  footnote(s, "Merchant fee and interest are % of GMV (dollar-weighted). Same-merchant comparison uses merchants with a promo program. Loss rate includes expected loss on delinquent loans.");
+  footnote(s, "* Rates on seasoned loans (originated Jul 2024–Jun 2025), % of GMV; shares and FICO on all loans. Same-merchant fee comparison uses merchants with a promo program.");
   s.addNotes("Same view by product. Interest-bearing is where the profit is: its loss rate is the highest, but interest income more than covers it. 0% APR is our safest product, yet it earns a third of the interest-bearing margin: we give up the interest, fund a 12-18 month loan, and the merchant fee is not higher — at the same merchants it is actually lower than on interest-bearing loans. That is the basis for repricing. Split Pay is thin too, but it is the entry product that leads customers to interest-bearing, so we keep it as an acquisition tool rather than reprice it.");
 }
 
@@ -225,7 +225,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
 
   const px = 7.7, pw = W - M - px;
   const stats = [
-    ["2.6% vs 1.0%", "Loss rate, first loans vs repeat loans — lower in every vertical and product"],
+    ["2.8% vs 1.1%", "Loss rate on seasoned loans, first vs repeat — lower in every vertical and product"],
     ["82%", "of credit loss dollars come from first loans"],
     ["63%", "of customers who start with Split Pay take an interest-bearing loan next"],
     ["86%", "of second loans stay in the same vertical — cross-selling is small (Appendix D)"],
@@ -237,7 +237,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
     s.addText(lab, { x: px + 0.25, y: y + 0.56, w: pw - 0.5, h: 0.46, fontFace: FONT, fontSize: 11.5, color: INK, margin: 0, valign: "top", isTextBox: true });
   });
   footnote(s, "Customers whose first loan was by Jun 2025. Repeat rate is set by the vertical, not the product. Synthetic data: repeat timing is very regular, so read sizes as indicative.");
-  s.addNotes("A customer who repays their first loan is a much better risk the second time: loss falls from 2.6% to 1.0%, and that holds in every vertical and product, including on seasoned loans. 82% of loss dollars come from first loans. Repeat rates are set by the vertical: frequent-purchase verticals like fashion and electronics already get ~95%; big-ticket verticals only ~20%, which is where the upside is. Split Pay works as an entry product: most customers move to interest-bearing on their next loan. And customers mostly come back to the same vertical (86%), so repeat growth has to be built vertical by vertical — cross-selling is small.");
+  s.addNotes("A customer who repays their first loan is a much better risk the second time: on seasoned loans, loss falls from 2.8% to 1.1%, and that holds in every vertical and product. 82% of loss dollars come from first loans. Repeat rates are set by the vertical: frequent-purchase verticals like fashion and electronics already get ~95%; big-ticket verticals only ~20%, which is where the upside is. Split Pay works as an entry product: most customers move to interest-bearing on their next loan. And customers mostly come back to the same vertical (86%), so repeat growth has to be built vertical by vertical — cross-selling is small.");
 }
 
 // ---------- 6. Investment plan & sizing ----------
@@ -250,13 +250,13 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   const H = (t, left) => ({ text: t, options: { bold: true, color: WHITE, fill: { color: NAVY }, align: left ? "left" : "center" } });
   const rows = [[H("Move", true), H("Why", true), H("How (conservative / ambitious)", true), H("GMV"), H("Profit"), H("Credit loss $")]];
   const moves = [
-    ["INVEST", GREEN, "Grow healthcare & home furnishing", "Best risk-adjusted margins (9.1%, 7.4%) with 1.2–1.5% loss",
+    ["INVEST", GREEN, "Grow healthcare & home furnishing", "Best risk-adjusted margins (9.8%, 8.2%) with 1.3–2.0% loss",
       "Merchant acquisition: +10% / +20% vertical GMV (≈ 1 new merchant each at +20%)", "+$78K / +$155K", "+$7.0K / +$14.0K", "+$1.3K / +$2.7K"],
     ["INVEST", GREEN, "Repeat customers", "Repeat loans lose 2.5× less; 82% of loss comes from first loans",
       "+5 / +10 pts big-ticket repeat rate; 5% / 10% of repeat loans Split Pay → interest-bearing", "+$86K / +$172K", "+$12.4K / +$24.9K", "+$1.3K / +$2.5K"],
-    ["TIGHTEN", RED, "Travel, FICO < 640", "~40% bad rate, 6.3% loss; margin ~0% if delinquents charge off",
+    ["TIGHTEN", RED, "Travel, FICO < 640", "~43% bad rate, 6.4% loss; margin ~1% if delinquents charge off",
       "Raise the risk model cut-off and lower limits: −25% / −50% segment volume", "−$54K / −$107K", "−$3.8K / −$7.6K", "−$3.4K / −$6.9K"],
-    ["REPRICE", INDIGO, "0% APR merchant fee", "Fee is 5.0% vs 5.4% for interest-bearing at the same merchants",
+    ["REPRICE", INDIGO, "0% APR merchant fee", "Fee is 5.1% vs 5.5% for interest-bearing at the same merchants",
       "+0.4 pt to parity (not in totals; depends on merchant response)", "—", "≈ +$1.9K", "—"],
   ];
   moves.forEach(([tag, col, name, why, how, gmv, profit, loss], i) => {
@@ -359,7 +359,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   title(s, "How the numbers were built");
   const blocks = [
     ["Unit economics per loan", "Contribution = merchant fee + interest collected − credit loss − funding cost. Funding = cost of funds × term × ½ principal (average balance of an amortizing loan). Full principal would lower margins ~1 pt but not change the vertical ranking."],
-    ["Maturity", "Young loans haven't paid interest or defaulted yet. Loss/margin comparisons are checked on seasoned loans (originated by Jun 2025)."],
+    ["Maturity", "Young loans haven't paid interest or defaulted yet, so segment rates (bad rate, loss, fees, interest, margin) use seasoned loans (originated Jul 2024–Jun 2025); shares use all loans."],
     ["Repeat customers", "First loans by Jun 2025; repeat = another loan within 180 days. Loss by new vs repeat checked on seasoned loans."],
     ["Sizing", "One year = 2025 volume × seasoned rates. Changes scale proportionally; new merchants perform like the vertical average."],
   ];
