@@ -61,46 +61,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   s.addNotes("Goal: where to add and where to pull back capital next year. One-line answer: grow healthcare and home furnishing merchants, invest in turning first-time customers into repeat customers, and tighten credit for the riskiest travel borrowers. The portfolio in scope: $4.0M GMV, 7,134 loans, 4,000 consumers, ~7% contribution margin after losses and funding.");
 }
 
-// ---------- 2. Executive summary ----------
-{
-  const s = pres.addSlide();
-  s.background = { color: WHITE };
-  kicker(s, "Recommendation");
-  title(s, "Shift growth to where losses are low and customers come back");
-
-  const items = [
-    ["INVEST", GREEN, "Merchant acquisition: healthcare & home furnishing",
-      "Best risk-adjusted margins (9.1%, 7.4%) with low loss. One new merchant ≈ +25–35% vertical GMV."],
-    ["INVEST", GREEN, "Repeat customers",
-      "Repeat loans lose 2.5× less; 82% of loss comes from first loans. Lift big-ticket repeat rate and steer second loans to interest-bearing."],
-    ["TIGHTEN", RED, "Travel borrowers with FICO < 640",
-      "~40% delinquent or charged off, 6.3% loss. Raise the risk model cut-off and lower limits: −25% to −50% volume."],
-    ["REPRICE", INDIGO, "0% APR merchant fee",
-      "Fee (5.0%) is below interest-bearing (5.4%) at the same merchants. Raise to at least parity."],
-  ];
-  items.forEach(([tag, col, head, body], i) => {
-    const y = 1.55 + i * 1.3;
-    card(s, M, y, 7.6, 1.15, "F6F6FE");
-    pill(s, M + 0.25, y + 0.2, tag, col);
-    s.addText(head, { x: M + 1.75, y: y + 0.13, w: 5.7, h: 0.4, fontFace: FONT, fontSize: 15, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText(body, { x: M + 1.75, y: y + 0.52, w: 5.7, h: 0.58, fontFace: FONT, fontSize: 12, color: MUTED, margin: 0, valign: "top", isTextBox: true });
-  });
-
-  const px = 8.65, pw = W - M - px;
-  card(s, px, 1.55, pw, 5.05, NAVY);
-  s.addText("One-year impact", { x: px + 0.35, y: 1.8, w: pw - 0.7, h: 0.4, fontFace: FONT, fontSize: 14, bold: true, color: LAV2, margin: 0, isTextBox: true });
-  s.addText("conservative → ambitious", { x: px + 0.35, y: 2.15, w: pw - 0.7, h: 0.3, fontFace: FONT, fontSize: 11, color: LAV2, margin: 0, isTextBox: true });
-  const stats = [["+7% → +15%", "profit (contribution)"], ["+4% → +8%", "GMV"], ["2.32% → 2.1–2.2%", "credit loss rate"]];
-  stats.forEach(([big, lab], i) => {
-    const y = 2.7 + i * 1.25;
-    s.addText(big, { x: px + 0.35, y, w: pw - 0.7, h: 0.55, fontFace: FONT, fontSize: 26, bold: true, color: WHITE, margin: 0, isTextBox: true });
-    s.addText(lab, { x: px + 0.35, y: y + 0.55, w: pw - 0.7, h: 0.35, fontFace: FONT, fontSize: 12, color: LAV2, margin: 0, isTextBox: true });
-  });
-  footnote(s, "Impact sized on 2025 volume at seasoned (Jan 2024–Jun 2025) margins and loss rates; 0% APR repricing not included in totals.");
-  s.addNotes("Four moves. Two where we invest: merchant acquisition in healthcare and home furnishing, and converting first-time customers into repeat customers. One where we pull back: travel borrowers below 640 FICO, via the risk model rather than a blunt cut-off. One pricing fix: 0% APR merchant fee. Together: profit grows faster than GMV and the loss rate goes down, because growth is steered toward low-loss segments.");
-}
-
-// ---------- 3. Portfolio health ----------
+// ---------- 2. Portfolio health ----------
 {
   const s = pres.addSlide();
   s.background = { color: WHITE };
@@ -138,7 +99,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   s.addNotes("Healthy trajectory: GMV up every quarter, 33% year over year for the second half. Credit quality is stable: average FICO ~652 throughout. Economics: revenue 10% of GMV, loss 2%, funding 1%, leaving ~7% contribution. Two things to flag: growth is led by interest-bearing, which is good, but also by fashion, our lowest-margin vertical; and the Q4-2024 holiday vintage had double the bad rate. Recent quarters show lower margins only because those loans are young.");
 }
 
-// ---------- 4. Risk segmentation ----------
+// ---------- 3. Risk segmentation ----------
 {
   const s = pres.addSlide();
   s.background = { color: WHITE };
@@ -180,7 +141,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   s.addNotes("Sorted by margin. Travel has five times the bad rate of any other vertical, but it is still our largest profit pool because revenue is high. The risk is concentrated in sub-640 FICO travel borrowers: 40% bad rate, and the margin disappears if the delinquent loans charge off. Fashion is half our loans but a tenth of profit. Healthcare and home furnishing combine low loss with high revenue. By product, interest-bearing earns 82% of profit.");
 }
 
-// ---------- 5. Repeat customers ----------
+// ---------- 4. Repeat customers ----------
 {
   const s = pres.addSlide();
   s.background = { color: WHITE };
@@ -213,6 +174,45 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
     { x: px, y: 5.95, w: pw, h: 0.6, fontFace: FONT, fontSize: 12, italic: true, color: MUTED, margin: 0, valign: "top", isTextBox: true });
   footnote(s, "Customers whose first loan was by Jun 2025. Synthetic data: repeat timing is very regular (100–185 days), so read sizes as indicative.");
   s.addNotes("A customer who repays their first loan is a much better risk the second time: loss falls from 2.6% to 1.0%, and that holds in every vertical and product, including on seasoned loans. 82% of loss dollars come from first loans. Repeat rates are set by the vertical: frequent-purchase verticals like fashion and electronics already get ~95%; big-ticket verticals only ~20%, which is where the upside is. And Split Pay works as an entry product: most customers move to interest-bearing, our highest-margin product, on their next loan.");
+}
+
+// ---------- 5. Investment plan ----------
+{
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+  kicker(s, "Investment plan");
+  title(s, "Shift growth to where losses are low and customers come back");
+
+  const items = [
+    ["INVEST", GREEN, "Merchant acquisition: healthcare & home furnishing",
+      "Best risk-adjusted margins (9.1%, 7.4%) with low loss. One new merchant ≈ +25–35% vertical GMV."],
+    ["INVEST", GREEN, "Repeat customers",
+      "Repeat loans lose 2.5× less; 82% of loss comes from first loans. Lift big-ticket repeat rate and steer second loans to interest-bearing."],
+    ["TIGHTEN", RED, "Travel borrowers with FICO < 640",
+      "~40% delinquent or charged off, 6.3% loss. Raise the risk model cut-off and lower limits: −25% to −50% volume."],
+    ["REPRICE", INDIGO, "0% APR merchant fee",
+      "Fee (5.0%) is below interest-bearing (5.4%) at the same merchants. Raise to at least parity."],
+  ];
+  items.forEach(([tag, col, head, body], i) => {
+    const y = 1.55 + i * 1.3;
+    card(s, M, y, 7.6, 1.15, "F6F6FE");
+    pill(s, M + 0.25, y + 0.2, tag, col);
+    s.addText(head, { x: M + 1.75, y: y + 0.13, w: 5.7, h: 0.4, fontFace: FONT, fontSize: 15, bold: true, color: INK, margin: 0, isTextBox: true });
+    s.addText(body, { x: M + 1.75, y: y + 0.52, w: 5.7, h: 0.58, fontFace: FONT, fontSize: 12, color: MUTED, margin: 0, valign: "top", isTextBox: true });
+  });
+
+  const px = 8.65, pw = W - M - px;
+  card(s, px, 1.55, pw, 5.05, NAVY);
+  s.addText("One-year impact", { x: px + 0.35, y: 1.8, w: pw - 0.7, h: 0.4, fontFace: FONT, fontSize: 14, bold: true, color: LAV2, margin: 0, isTextBox: true });
+  s.addText("conservative → ambitious", { x: px + 0.35, y: 2.15, w: pw - 0.7, h: 0.3, fontFace: FONT, fontSize: 11, color: LAV2, margin: 0, isTextBox: true });
+  const stats = [["+7% → +15%", "profit (contribution)"], ["+4% → +8%", "GMV"], ["2.32% → 2.1–2.2%", "credit loss rate"]];
+  stats.forEach(([big, lab], i) => {
+    const y = 2.7 + i * 1.25;
+    s.addText(big, { x: px + 0.35, y, w: pw - 0.7, h: 0.55, fontFace: FONT, fontSize: 26, bold: true, color: WHITE, margin: 0, isTextBox: true });
+    s.addText(lab, { x: px + 0.35, y: y + 0.55, w: pw - 0.7, h: 0.35, fontFace: FONT, fontSize: 12, color: LAV2, margin: 0, isTextBox: true });
+  });
+  footnote(s, "Impact sized on 2025 volume at seasoned (Jul 2024–Jun 2025) margins and loss rates; 0% APR repricing not included in totals.");
+  s.addNotes("Four moves. Two where we invest: merchant acquisition in healthcare and home furnishing, and converting first-time customers into repeat customers. One where we pull back: travel borrowers below 640 FICO, via the risk model rather than a blunt cut-off. One pricing fix: 0% APR merchant fee. Together: profit grows faster than GMV and the loss rate goes down, because growth is steered toward low-loss segments.");
 }
 
 // ---------- 6. Recommendations & sizing ----------
