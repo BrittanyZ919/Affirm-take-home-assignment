@@ -228,97 +228,72 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
     ["2.6% vs 1.0%", "Loss rate, first loans vs repeat loans — lower in every vertical and product"],
     ["82%", "of credit loss dollars come from first loans"],
     ["63%", "of customers who start with Split Pay take an interest-bearing loan next"],
+    ["86%", "of second loans stay in the same vertical — cross-selling is small (Appendix D)"],
   ];
   stats.forEach(([big, lab], i) => {
-    const y = 1.55 + i * 1.45;
-    card(s, px, y, pw, 1.3, LAV);
-    s.addText(big, { x: px + 0.25, y: y + 0.12, w: pw - 0.5, h: 0.55, fontFace: FONT, fontSize: 26, bold: true, color: INDIGO, margin: 0, isTextBox: true });
-    s.addText(lab, { x: px + 0.25, y: y + 0.66, w: pw - 0.5, h: 0.58, fontFace: FONT, fontSize: 12, color: INK, margin: 0, valign: "top", isTextBox: true });
+    const y = 1.55 + i * 1.22;
+    card(s, px, y, pw, 1.08, LAV);
+    s.addText(big, { x: px + 0.25, y: y + 0.08, w: pw - 0.5, h: 0.48, fontFace: FONT, fontSize: 24, bold: true, color: INDIGO, margin: 0, isTextBox: true });
+    s.addText(lab, { x: px + 0.25, y: y + 0.56, w: pw - 0.5, h: 0.46, fontFace: FONT, fontSize: 11.5, color: INK, margin: 0, valign: "top", isTextBox: true });
   });
-  s.addText("Repeat behaviour is set by the vertical, not the product. Big-ticket verticals have the most room to grow it.",
-    { x: px, y: 5.95, w: pw, h: 0.6, fontFace: FONT, fontSize: 12, italic: true, color: MUTED, margin: 0, valign: "top", isTextBox: true });
-  footnote(s, "Customers whose first loan was by Jun 2025. Synthetic data: repeat timing is very regular (100–185 days), so read sizes as indicative.");
-  s.addNotes("A customer who repays their first loan is a much better risk the second time: loss falls from 2.6% to 1.0%, and that holds in every vertical and product, including on seasoned loans. 82% of loss dollars come from first loans. Repeat rates are set by the vertical: frequent-purchase verticals like fashion and electronics already get ~95%; big-ticket verticals only ~20%, which is where the upside is. And Split Pay works as an entry product: most customers move to interest-bearing, our highest-margin product, on their next loan.");
+  footnote(s, "Customers whose first loan was by Jun 2025. Repeat rate is set by the vertical, not the product. Synthetic data: repeat timing is very regular, so read sizes as indicative.");
+  s.addNotes("A customer who repays their first loan is a much better risk the second time: loss falls from 2.6% to 1.0%, and that holds in every vertical and product, including on seasoned loans. 82% of loss dollars come from first loans. Repeat rates are set by the vertical: frequent-purchase verticals like fashion and electronics already get ~95%; big-ticket verticals only ~20%, which is where the upside is. Split Pay works as an entry product: most customers move to interest-bearing on their next loan. And customers mostly come back to the same vertical (86%), so repeat growth has to be built vertical by vertical — cross-selling is small.");
 }
 
-// ---------- 6. Investment plan ----------
+// ---------- 6. Investment plan & sizing ----------
 {
   const s = pres.addSlide();
   s.background = { color: WHITE };
   kicker(s, "Investment plan");
-  title(s, "Shift growth to where losses are low and customers come back");
+  title(s, "Four moves add ~7–15% profit while lowering the loss rate");
 
-  const items = [
-    ["INVEST", GREEN, "Merchant acquisition: healthcare & home furnishing",
-      "Best risk-adjusted margins (9.1%, 7.4%) with low loss. One new merchant ≈ +25–35% vertical GMV."],
-    ["INVEST", GREEN, "Repeat customers",
-      "Repeat loans lose 2.5× less; 82% of loss comes from first loans. Lift big-ticket repeat rate and steer second loans to interest-bearing."],
-    ["TIGHTEN", RED, "Travel borrowers with FICO < 640",
-      "~40% delinquent or charged off, 6.3% loss. Raise the risk model cut-off and lower limits: −25% to −50% volume."],
-    ["REPRICE", INDIGO, "0% APR merchant fee",
-      "Fee (5.0%) is below interest-bearing (5.4%) at the same merchants. Raise to at least parity."],
+  const H = (t, left) => ({ text: t, options: { bold: true, color: WHITE, fill: { color: NAVY }, align: left ? "left" : "center" } });
+  const rows = [[H("Move", true), H("Why", true), H("How (conservative / ambitious)", true), H("GMV"), H("Profit"), H("Credit loss $")]];
+  const moves = [
+    ["INVEST", GREEN, "Grow healthcare & home furnishing", "Best risk-adjusted margins (9.1%, 7.4%) with 1.2–1.5% loss",
+      "Merchant acquisition: +10% / +20% vertical GMV (≈ 1 new merchant each at +20%)", "+$78K / +$155K", "+$7.0K / +$14.0K", "+$1.3K / +$2.7K"],
+    ["INVEST", GREEN, "Repeat customers", "Repeat loans lose 2.5× less; 82% of loss comes from first loans",
+      "+5 / +10 pts big-ticket repeat rate; 5% / 10% of repeat loans Split Pay → interest-bearing", "+$86K / +$172K", "+$12.4K / +$24.9K", "+$1.3K / +$2.5K"],
+    ["TIGHTEN", RED, "Travel, FICO < 640", "~40% bad rate, 6.3% loss; margin ~0% if delinquents charge off",
+      "Raise the risk model cut-off and lower limits: −25% / −50% segment volume", "−$54K / −$107K", "−$3.8K / −$7.6K", "−$3.4K / −$6.9K"],
+    ["REPRICE", INDIGO, "0% APR merchant fee", "Fee is 5.0% vs 5.4% for interest-bearing at the same merchants",
+      "+0.4 pt to parity (not in totals; depends on merchant response)", "—", "≈ +$1.9K", "—"],
   ];
-  items.forEach(([tag, col, head, body], i) => {
-    const y = 1.55 + i * 1.3;
-    card(s, M, y, 7.6, 1.15, "F6F6FE");
-    pill(s, M + 0.25, y + 0.2, tag, col);
-    s.addText(head, { x: M + 1.75, y: y + 0.13, w: 5.7, h: 0.4, fontFace: FONT, fontSize: 15, bold: true, color: INK, margin: 0, isTextBox: true });
-    s.addText(body, { x: M + 1.75, y: y + 0.52, w: 5.7, h: 0.58, fontFace: FONT, fontSize: 12, color: MUTED, margin: 0, valign: "top", isTextBox: true });
+  moves.forEach(([tag, col, name, why, how, gmv, profit, loss], i) => {
+    const fill = { color: i % 2 ? "F6F6FE" : WHITE };
+    // Two lines: conservative (top) / ambitious (bottom)
+    const num = (t) => {
+      const color = t.startsWith("−") ? RED : INK;
+      const parts = t.split(" / ");
+      const text = parts.length === 2
+        ? [{ text: parts[0], options: { color, bold: true, breakLine: true } }, { text: parts[1], options: { color } }]
+        : t;
+      return { text, options: { align: "center", color, fill } };
+    };
+    rows.push([
+      { text: [{ text: tag, options: { color: col, bold: true, fontSize: 9.5, breakLine: true } },
+               { text: name, options: { color: INK, bold: true } }], options: { fill } },
+      { text: why, options: { color: INK, fill } },
+      { text: how, options: { color: INK, fill } },
+      num(gmv), num(profit), num(loss),
+    ]);
   });
-
-  const px = 8.65, pw = W - M - px;
-  card(s, px, 1.55, pw, 5.05, NAVY);
-  s.addText("One-year impact", { x: px + 0.35, y: 1.8, w: pw - 0.7, h: 0.4, fontFace: FONT, fontSize: 14, bold: true, color: LAV2, margin: 0, isTextBox: true });
-  s.addText("conservative → ambitious", { x: px + 0.35, y: 2.15, w: pw - 0.7, h: 0.3, fontFace: FONT, fontSize: 11, color: LAV2, margin: 0, isTextBox: true });
-  const stats = [["+7% → +15%", "profit (contribution)"], ["+4% → +8%", "GMV"], ["2.32% → 2.1–2.2%", "credit loss rate"]];
-  stats.forEach(([big, lab], i) => {
-    const y = 2.7 + i * 1.25;
-    s.addText(big, { x: px + 0.35, y, w: pw - 0.7, h: 0.55, fontFace: FONT, fontSize: 26, bold: true, color: WHITE, margin: 0, isTextBox: true });
-    s.addText(lab, { x: px + 0.35, y: y + 0.55, w: pw - 0.7, h: 0.35, fontFace: FONT, fontSize: 12, color: LAV2, margin: 0, isTextBox: true });
-  });
-  footnote(s, "Impact sized on 2025 volume at seasoned (Jul 2024–Jun 2025) margins and loss rates; 0% APR repricing not included in totals.");
-  s.addNotes("Four moves. Two where we invest: merchant acquisition in healthcare and home furnishing, and converting first-time customers into repeat customers. One where we pull back: travel borrowers below 640 FICO, via the risk model rather than a blunt cut-off. One pricing fix: 0% APR merchant fee. Together: profit grows faster than GMV and the loss rate goes down, because growth is steered toward low-loss segments.");
-}
-
-// ---------- 7. Recommendations & sizing ----------
-{
-  const s = pres.addSlide();
-  s.background = { color: WHITE };
-  kicker(s, "Sizing");
-  title(s, "Together the moves add ~7–15% profit while lowering the loss rate");
-
-  const H = (t) => ({ text: t, options: { bold: true, color: WHITE, fill: { color: NAVY }, align: "center" } });
-  const rows = [
-    [H("Recommendation"), H("Assumption (conservative / ambitious)"), H("GMV"), H("Profit"), H("Credit loss $")],
-  ];
-  const body = [
-    ["1. Grow healthcare & home furnishing", "+10% / +20% vertical GMV (≈ 1 new merchant each at +20%)", "+$78K / +$155K", "+$7.0K / +$14.0K", "+$1.3K / +$2.7K"],
-    ["2. Repeat customers", "+5 / +10 pts big-ticket repeat rate; 5% / 10% of repeat loans move Split Pay → interest-bearing", "+$86K / +$172K", "+$12.4K / +$24.9K", "+$1.3K / +$2.5K"],
-    ["3. Tighten travel, FICO < 640", "Risk model cut-off and limits cut segment volume −25% / −50%", "−$54K / −$107K", "−$3.8K / −$7.6K", "−$3.4K / −$6.9K"],
-  ];
-  body.forEach((r, i) => rows.push(r.map((c, j) => ({ text: c, options: {
-    bold: j === 0, color: j >= 2 && c.startsWith("−") ? RED : INK, align: j >= 2 ? "center" : "left",
-    fill: { color: i % 2 ? "F6F6FE" : WHITE } } }))));
+  const T = (t, o = {}) => ({ text: t, options: { bold: true, color: INDIGO, align: "center", fill: { color: LAV }, ...o } });
   rows.push([
-    { text: "Total vs 2025 baseline", options: { bold: true, color: INDIGO, fill: { color: LAV } } },
-    { text: "Baseline: $2.85M GMV, $212K profit, 2.32% loss rate", options: { color: INK, fill: { color: LAV } } },
-    { text: "+3.9% / +7.7%", options: { bold: true, color: INDIGO, align: "center", fill: { color: LAV } } },
-    { text: "+7.4% / +14.8%", options: { bold: true, color: INDIGO, align: "center", fill: { color: LAV } } },
-    { text: "Loss rate → 2.21% / 2.10%", options: { bold: true, color: GREEN, align: "center", fill: { color: LAV } } },
+    T("Total (moves 1–3)", { align: "left" }),
+    { text: "vs 2025 baseline: $2.85M GMV, $212K profit, 2.32% loss rate", options: { color: INK, fill: { color: LAV }, colspan: 2 } },
+    T("+3.9% / +7.7%"), T("+7.4% / +14.8%"), T("Loss rate → 2.21% / 2.10%", { color: GREEN }),
   ]);
-  s.addTable(rows, { x: M, y: 1.55, w: W - 2 * M, colW: [2.9, 4.1, 1.75, 1.7, 1.683], rowH: [0.45, 0.8, 0.8, 0.8, 0.7],
-    fontFace: FONT, fontSize: 12, border: { type: "solid", pt: 0.5, color: LINE }, valign: "middle", margin: [0.03, 0.1, 0.03, 0.1] });
+  s.addTable(rows, { x: M, y: 1.5, w: W - 2 * M, colW: [2.35, 2.9, 3.05, 1.25, 1.3, 1.283], rowH: [0.42, 0.88, 0.88, 0.88, 0.88, 0.62],
+    fontFace: FONT, fontSize: 11, border: { type: "solid", pt: 0.5, color: LINE }, valign: "middle", margin: [0.04, 0.1, 0.04, 0.1] });
 
-  card(s, M, 5.4, W - 2 * M, 1.2, "F6F6FE");
-  pill(s, M + 0.25, 5.85, "NOT IN TOTALS", INDIGO, WHITE, 1.5);
-  s.addText("4. Reprice 0% APR: raising the merchant fee +0.4 pt to interest-bearing parity adds ≈ +$1.9K a year (+0.9% profit), " +
-    "if merchants keep the program — a call for Merchant Partnerships.",
-    { x: M + 2.0, y: 5.5, w: W - 2 * M - 2.25, h: 0.95, fontFace: FONT, fontSize: 12, color: INK, margin: 0, valign: "middle", isTextBox: true });
-  footnote(s, "One year = 2025 volume × seasoned margins/loss rates. The data is a sample of total volume, so read $ as relative sizes. New merchants assumed to perform like the vertical average.");
-  s.addNotes("Each lever is sized on 2025 volume at seasoned margins, with a conservative and an ambitious case. Repeat customers are the biggest profit lever. Merchant acquisition adds steady growth: each vertical only has 3–4 merchants, so one new average merchant adds 25–35% to the vertical. Tightening travel costs some profit, which is a deliberate trade for lower risk. Net: profit +7–15%, GMV +4–8%, and the loss rate goes down. 0% APR repricing is on top, but depends on merchant response.");
+  s.addText("Profit grows faster than GMV and the loss rate falls: growth goes to low-loss verticals and repeat customers, and exposure is cut where risk is concentrated.",
+    { x: M, y: 6.25, w: W - 2 * M, h: 0.5, fontFace: FONT, fontSize: 12, italic: true, color: MUTED, margin: 0, valign: "top", isTextBox: true });
+  footnote(s, "GMV / profit / loss cells: top = conservative, bottom = ambitious. One year = 2025 volume × seasoned (Jul 2024–Jun 2025) rates; the data is a sample, so read $ as relative sizes.");
+  s.addNotes("Four moves, each with the evidence and the sizing on one line. Two where we invest: healthcare and home furnishing merchants — one new average merchant adds 25–35% to the vertical — and repeat customers, which is the biggest profit lever. One where we pull back: travel below 640 FICO, through the risk model's cut-off and limits; it costs some profit, a deliberate trade for lower risk. One pricing fix: 0% APR merchant fee, shown separately because it depends on how merchants respond. Net: profit +7–15%, GMV +4–8%, and the loss rate goes down.");
 }
 
-// ---------- 8. Risks & next steps ----------
+// ---------- 7. Risks & next steps ----------
 {
   const s = pres.addSlide();
   s.background = { color: NAVY };
@@ -421,6 +396,34 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
     { text: "Split Pay loans finish in ~6 weeks, so quarters are complete: loss rose from 1.1% to 2.5–3.1% and margin fell from 4.0% to ~2–3%.", options: { bullet: true, breakLine: true } },
     { text: "0% APR revenue is the merchant fee, fixed up front; margin ~3–4%.", options: { bullet: true } },
   ], { x: px, y: 1.7, w: pw, h: 4.6, fontFace: FONT, fontSize: 13, color: INK, paraSpaceAfter: 12, margin: 0, valign: "top", isTextBox: true });
+}
+
+// ---------- Appendix D: first vs second loan vertical ----------
+{
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+  kicker(s, "Appendix D · Repeat customers", MUTED);
+  title(s, "86% of repeat customers come back to the same vertical; fashion is the main source of cross-selling");
+  const names = ["Fashion", "Electronics", "Fitness", "Home furnishing", "Travel", "Auto parts", "Healthcare"];
+  const counts = [1340, 420, 202, 84, 49, 56, 37];
+  const m = [[88, 3, 1, 2, 2, 2, 1], [9, 80, 2, 3, 1, 2, 1], [5, 5, 84, 1, 0, 3, 1], [6, 7, 2, 79, 2, 0, 4],
+             [4, 2, 0, 2, 86, 4, 2], [11, 9, 0, 0, 0, 77, 4], [11, 3, 0, 0, 3, 8, 76]];
+  const shade = (v) => v >= 50 ? [INDIGO, WHITE] : v >= 5 ? [LAV2, INK] : v >= 1 ? [LAV, INK] : [WHITE, MUTED];
+  const hdr = [{ text: "First loan ↓ / second loan →", options: { bold: true, color: WHITE, fill: { color: NAVY } } },
+               { text: "Repeat customers", options: { bold: true, color: WHITE, fill: { color: NAVY }, align: "center" } },
+               ...names.map(n => ({ text: n, options: { bold: true, color: WHITE, fill: { color: NAVY }, align: "center" } }))];
+  const rows = [hdr];
+  names.forEach((n, i) => rows.push([
+    { text: n, options: { bold: true, color: INK } },
+    { text: counts[i].toLocaleString("en-US"), options: { color: INK, align: "center" } },
+    ...m[i].map(v => { const [f, c] = shade(v); return { text: v + "%", options: { align: "center", color: c, bold: v >= 50, fill: { color: f } } }; }),
+  ]));
+  s.addTable(rows, { x: M, y: 1.55, w: W - 2 * M, colW: [2.3, 1.3, 1.219, 1.219, 1.219, 1.219, 1.219, 1.219, 1.219], rowH: 0.55,
+    fontFace: FONT, fontSize: 12, border: { type: "solid", pt: 0.5, color: LINE }, valign: "middle", margin: [0.03, 0.1, 0.03, 0.1] });
+  s.addText([
+    { text: "Each row = customers whose first loan was in that vertical; cells = where their second loan was (row %).", options: { bullet: true, breakLine: true } },
+    { text: "Fashion is the main cross-sell source: 157 fashion customers took their second loan elsewhere, 101 of them in big-ticket verticals.", options: { bullet: true } },
+  ], { x: M, y: 6.1, w: W - 2 * M, h: 0.75, fontFace: FONT, fontSize: 12, color: INK, paraSpaceAfter: 4, margin: 0, valign: "top", isTextBox: true });
 }
 
 pres.writeFile({ fileName: OUT }).then(f => console.log("wrote", f));
