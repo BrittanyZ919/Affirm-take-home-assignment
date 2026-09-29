@@ -152,7 +152,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   const callouts = [
     ["Travel, FICO < 640", "~40% delinquent or charged off; 6.3% loss. Margin 6.7% falls to ~0% if delinquent loans charge off.", RED],
     ["Fashion", "51% of loans but 10% of profit. Small tickets; fashion Split Pay earns ~1% margin.", RED],
-    ["By product", "Interest-bearing is 58% of GMV and 82% of profit. Split Pay (2.6%) and 0% APR (3.4%) margins are thin.", INDIGO],
+    ["Healthcare & home furnishing", "Low loss (1.2–1.5%) with high revenue. A healthcare customer is worth ~$215 in profit over their loans.", GREEN],
   ];
   callouts.forEach(([h, b, col], i) => {
     const y = 1.6 + i * 1.72;
@@ -164,7 +164,49 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   s.addNotes("Sorted by margin. Travel has five times the bad rate of any other vertical, but it is still our largest profit pool because revenue is high. The risk is concentrated in sub-640 FICO travel borrowers: 40% bad rate, and the margin disappears if the delinquent loans charge off. Fashion is half our loans but a tenth of profit. Healthcare and home furnishing combine low loss with high revenue. By product, interest-bearing earns 82% of profit.");
 }
 
-// ---------- 4. Repeat customers ----------
+// ---------- 4. Product economics ----------
+{
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+  kicker(s, "Where value sits by product");
+  title(s, "Interest-bearing earns 82% of profit; 0% APR gives up interest without a higher merchant fee");
+
+  const hdr = ["Product", "Share of loans", "Share of GMV", "Avg FICO", "Loss rate", "Merchant fee", "Interest", "Margin", "Share of profit"];
+  const data = [
+    ["Interest-bearing", "48%", "58%", "644", "2.3%", "6.1%", "7.4%", "9.9%", "82%"],
+    ["0% APR", "11%", "18%", "683", "1.0%", "5.7%", "—", "3.4%", "9%"],
+    ["Split Pay", "41%", "24%", "656", "2.2%", "5.0%", "—", "2.6%", "9%"],
+  ];
+  const highlight = { "Interest-bearing": { 6: GREEN, 7: GREEN, 8: GREEN }, "0% APR": { 3: GREEN, 4: GREEN, 5: RED, 7: RED },
+                      "Split Pay": { 4: RED, 7: RED } };
+  const rows = [hdr.map((h, j) => ({ text: h, options: { bold: true, color: WHITE, fill: { color: NAVY }, align: j ? "center" : "left" } }))];
+  data.forEach((r, i) => rows.push(r.map((c, j) => {
+    const col = (highlight[r[0]] || {})[j];
+    return { text: c, options: { color: col || INK, bold: !!col || j === 0, align: j ? "center" : "left", fill: { color: i % 2 ? "F6F6FE" : WHITE } } };
+  })));
+  s.addTable(rows, { x: M, y: 1.6, w: W - 2 * M, colW: [2.0, 1.3, 1.3, 1.1, 1.2, 1.35, 1.2, 1.2, 1.483], rowH: 0.6, fontFace: FONT, fontSize: 13,
+    border: { type: "solid", pt: 0.5, color: LINE }, valign: "middle", margin: [0.03, 0.1, 0.03, 0.1] });
+
+  const cards = [
+    ["0% APR is under-priced", RED,
+      "Lowest risk (FICO 683, 1.0% loss), but no interest and a 12–18 month term to fund. The promo is meant to be paid for by a higher merchant fee — yet at the same promo merchants its fee averages 5.0% vs 5.4% for interest-bearing."],
+    ["Split Pay is an entry product", INDIGO,
+      "Thin margin (2.6%) with loss as high as interest-bearing, but 63% of customers who start with Split Pay take an interest-bearing loan next."],
+    ["Interest-bearing pays for the risk", GREEN,
+      "Highest loss (2.3%) is more than covered by 7.4% interest income — 58% of GMV, 82% of profit."],
+  ];
+  const cw = (W - 2 * M - 0.6) / 3;
+  cards.forEach(([h, col, b], i) => {
+    const x = M + i * (cw + 0.3);
+    card(s, x, 4.2, cw, 2.05, "F6F6FE");
+    s.addText(h, { x: x + 0.25, y: 4.35, w: cw - 0.5, h: 0.4, fontFace: FONT, fontSize: 14, bold: true, color: col, margin: 0, isTextBox: true });
+    s.addText(b, { x: x + 0.25, y: 4.8, w: cw - 0.5, h: 1.35, fontFace: FONT, fontSize: 12, color: INK, margin: 0, valign: "top", isTextBox: true });
+  });
+  footnote(s, "Merchant fee and interest are % of GMV (dollar-weighted). Same-merchant comparison uses merchants with a promo program. Loss rate includes expected loss on delinquent loans.");
+  s.addNotes("Same view by product. Interest-bearing is where the profit is: its loss rate is the highest, but interest income more than covers it. 0% APR is our safest product, yet it earns a third of the interest-bearing margin: we give up the interest, fund a 12-18 month loan, and the merchant fee is not higher — at the same merchants it is actually lower than on interest-bearing loans. That is the basis for repricing. Split Pay is thin too, but it is the entry product that leads customers to interest-bearing, so we keep it as an acquisition tool rather than reprice it.");
+}
+
+// ---------- 5. Repeat customers ----------
 {
   const s = pres.addSlide();
   s.background = { color: WHITE };
@@ -199,7 +241,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   s.addNotes("A customer who repays their first loan is a much better risk the second time: loss falls from 2.6% to 1.0%, and that holds in every vertical and product, including on seasoned loans. 82% of loss dollars come from first loans. Repeat rates are set by the vertical: frequent-purchase verticals like fashion and electronics already get ~95%; big-ticket verticals only ~20%, which is where the upside is. And Split Pay works as an entry product: most customers move to interest-bearing, our highest-margin product, on their next loan.");
 }
 
-// ---------- 5. Investment plan ----------
+// ---------- 6. Investment plan ----------
 {
   const s = pres.addSlide();
   s.background = { color: WHITE };
