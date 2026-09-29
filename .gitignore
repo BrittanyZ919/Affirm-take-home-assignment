@@ -1,0 +1,4 @@
+# Assignment data is confidential — keep it out of the repo
+*.csv
+data/
+.ipynb_checkpoints/
