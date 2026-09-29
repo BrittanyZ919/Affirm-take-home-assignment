@@ -68,14 +68,37 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
   kicker(s, "Portfolio health");
   title(s, "The book grew 33% year over year with stable credit quality and a ~7% margin");
 
-  s.addChart(pres.charts.BAR, [{ name: "GMV ($K)", labels: ["Q3-24", "Q4-24", "Q1-25", "Q2-25", "Q3-25", "Q4-25"],
-    values: [459, 664, 650, 704, 721, 771] }], {
-    x: M, y: 1.5, w: 7.2, h: 4.2, barDir: "col", chartColors: [INDIGO],
-    showTitle: true, title: "GMV by origination quarter ($K)", titleFontFace: FONT, titleFontSize: 13, titleColor: INK,
-    showValue: true, dataLabelPosition: "outEnd", dataLabelFontSize: 11, dataLabelColor: INK, dataLabelFontFace: FONT,
-    catAxisLabelColor: MUTED, valAxisLabelColor: MUTED, catAxisLabelFontSize: 11, valAxisLabelFontSize: 10,
-    catAxisLabelFontFace: FONT, valAxisLabelFontFace: FONT,
-    valGridLine: { color: "E6E6EE", size: 0.5 }, catGridLine: { style: "none" }, showLegend: false, barGapWidthPct: 60,
+  // Bars: GMV ($K, left axis). Lines: revenue, credit loss, funding cost (% of GMV, right axis)
+  const qLabels = ["Q3-24", "Q4-24", "Q1-25", "Q2-25", "Q3-25", "Q4-25"];
+  s.addChart([
+    { type: pres.charts.BAR,
+      data: [{ name: "GMV ($K, left axis)", labels: qLabels, values: [459, 664, 650, 704, 721, 771] }],
+      options: { barDir: "col", chartColors: [LAV2], barGapWidthPct: 60,
+        showValue: true, dataLabelPosition: "inEnd", dataLabelFontSize: 10, dataLabelColor: INK, dataLabelFontFace: FONT } },
+    { type: pres.charts.LINE,
+      data: [
+        { name: "Revenue (% of GMV)", labels: qLabels, values: [10.8, 11.0, 11.3, 10.7, 9.7, 7.5] },
+        { name: "Credit loss (% of GMV)", labels: qLabels, values: [1.4, 2.9, 2.1, 2.5, 2.0, 1.2] },
+        { name: "Funding cost (% of GMV)", labels: qLabels, values: [1.0, 1.1, 1.1, 1.1, 1.1, 1.1] },
+      ],
+      options: { chartColors: [INDIGO, RED, MUTED], lineSize: 2.5, lineDataSymbol: "circle", lineDataSymbolSize: 7,
+        secondaryValAxis: true, secondaryCatAxis: true } },
+  ], {
+    x: M, y: 1.45, w: 7.3, h: 4.9,
+    showTitle: true, title: "GMV and unit economics by origination quarter", titleFontFace: FONT, titleFontSize: 13, titleColor: INK,
+    showLegend: true, legendPos: "b", legendFontFace: FONT, legendFontSize: 10, legendColor: INK,
+    valAxes: [
+      { showValAxisTitle: true, valAxisTitle: "GMV ($K)", valAxisTitleFontSize: 10, valAxisTitleColor: MUTED,
+        valAxisLabelColor: MUTED, valAxisLabelFontSize: 10, valAxisLabelFontFace: FONT, valAxisMinVal: 0, valAxisMaxVal: 900,
+        valGridLine: { color: "E6E6EE", size: 0.5 } },
+      { showValAxisTitle: true, valAxisTitle: "% of GMV", valAxisTitleFontSize: 10, valAxisTitleColor: MUTED,
+        valAxisLabelColor: MUTED, valAxisLabelFontSize: 10, valAxisLabelFontFace: FONT, valAxisMinVal: 0, valAxisMaxVal: 12,
+        valGridLine: { style: "none" } },
+    ],
+    catAxes: [
+      { catAxisLabelColor: MUTED, catAxisLabelFontSize: 11, catAxisLabelFontFace: FONT },
+      { catAxisHidden: true },
+    ],
   });
 
   const px = 8.3, pw = W - M - px;
@@ -95,7 +118,7 @@ function pill(slide, x, y, text, fill, color = WHITE, w = 1.3) {
     { text: "Average FICO flat at ~652 — growth didn't come from loosening credit", options: { bullet: true, breakLine: true } },
     { text: "Holiday vintage (Q4-24): 10% of loans went bad, 2× other quarters", options: { bullet: true } },
   ], { x: px, y: 4.55, w: pw, h: 2.0, fontFace: FONT, fontSize: 12, color: INK, paraSpaceAfter: 8, margin: 0, valign: "top", isTextBox: true });
-  footnote(s, "YoY = Jul–Dec 2025 vs Jul–Dec 2024. Funding cost = cost of funds × term × average outstanding balance (½ principal).");
+  footnote(s, "YoY = Jul–Dec 2025 vs Jul–Dec 2024. Q3–Q4 2025 loans are young, so their revenue and loss are still accruing. Funding = cost of funds × term × ½ principal.");
   s.addNotes("Healthy trajectory: GMV up every quarter, 33% year over year for the second half. Credit quality is stable: average FICO ~652 throughout. Economics: revenue 10% of GMV, loss 2%, funding 1%, leaving ~7% contribution. Two things to flag: growth is led by interest-bearing, which is good, but also by fashion, our lowest-margin vertical; and the Q4-2024 holiday vintage had double the bad rate. Recent quarters show lower margins only because those loans are young.");
 }
 
